@@ -15,7 +15,10 @@ app.add_middleware(
     allow_headers=["*"],  
 )
 model.Base.metadata.create_all(bind=engine)
-# main.py
+
+@app.get("/")
+async def root():
+   return {"message": "Hello World"}
 @app.post("/create", response_model=schemas.Book)
 def create_book(book: schemas.BookCreate, db: Session = Depends(get_db)):
     
